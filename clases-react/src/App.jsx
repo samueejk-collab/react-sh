@@ -6,6 +6,7 @@ import './App.css'
 
 import Persona from './components/persona'
 import Perfil from './components/perfil'
+import TarjetaPelicula from './components/TarjetaPelicula'
 
 const peliculas = [
       { id: 1, titulo: "Interstellar",     año: 2014, vista: false },
@@ -15,21 +16,31 @@ const peliculas = [
     ];
 
 function App() {
+  const [cuenta , setcuenta] = useState(0) //use = hook valor inicial 0, guardar valor en cuenta
   const [count, setCount] = useState(0)
-
+//estado actualizar function
   return (
-    <>{/*
-      <h1> hola mundo </h1>
-      <Persona nombre="Samuel" />
-      <ul> 
-          <li> JAVA </li>
-          <li> JS </li>
-          <li> python </li>
-      </ul>*/}
-     {/* <Perfil nombre="sam" 
+    <>
+     {
+      <Perfil nombre="samu" 
       rol="Desarrollador"
-      lenguajes={["JavaScript", "React", "CSS"]} />*/}
-      
+      lenguajes={["JavaScript", "React", "CSS"]} />}
+
+    {peliculas.map((pelicula) => (
+        <TarjetaPelicula
+          key={pelicula.id}
+          titulo={pelicula.titulo}
+          año={pelicula.año}
+          vista={pelicula.vista}
+        />
+            ))}
+      <h2> Conatador:</h2>
+      <div>
+        <p>{cuenta}</p>
+        <button onClick={()=> setcuenta(cuenta + 1)}>Sumar</button>
+        <button onClick ={() => setcuenta(cuenta - 1)}>Restar</button>
+        <button onClick={() => setcuenta((0))}>reiniciar</button>
+      </div>
     </>
   )
 }
