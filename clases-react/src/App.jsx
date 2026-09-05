@@ -7,6 +7,9 @@ import './App.css'
 import Persona from './components/persona'
 import Perfil from './components/perfil'
 import TarjetaPelicula from './components/TarjetaPelicula'
+import Acordeon from './components/acordeon'
+import Buscador from './components/Buscador'
+import ListaDeCompras from './components/ListaDeCompras'
 
 const peliculas = [
       { id: 1, titulo: "Interstellar",     año: 2014, vista: false },
@@ -21,11 +24,12 @@ function App() {
 //estado actualizar function
   return (
     <>
-     {
+     {/* Ejercicio 2  */
       <Perfil nombre="samu" 
       rol="Desarrollador"
       lenguajes={["JavaScript", "React", "CSS"]} />}
 
+{/* Ejercicio 3*/}
     {peliculas.map((pelicula) => (
         <TarjetaPelicula
           key={pelicula.id}
@@ -34,12 +38,26 @@ function App() {
           vista={pelicula.vista}
         />
             ))}
-      <h2> Conatador:</h2>
+            
+      {/* Ejercicio 5 - Toggle */}
+      <Acordeon 
+        titulo="Titulo" 
+        contenido="Contenido" 
+      /> 
+      {/* Ejercicio 6 - Input */}
+      <h2>Buscador de Frutas:</h2>
+      <Buscador />
+
+      {/* Ejercicio 7 - Integrador (Lista de compras) */}
+      <h2>Lista de Compras:</h2>
+      <ListaDeCompras /> 
+      {/* Ejercicio 4 */}   
+      <h2> Contador:</h2>
       <div>
         <p>{cuenta}</p>
         <button onClick={()=> setcuenta(cuenta + 1)}>Sumar</button>
         <button onClick ={() => setcuenta(cuenta - 1)}>Restar</button>
-        <button onClick={() => setcuenta((0))}>reiniciar</button>
+        <button onClick={() => setcuenta(0)}>reiniciar</button>
       </div>
     </>
   )
