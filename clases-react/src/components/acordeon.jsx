@@ -1,4 +1,6 @@
-export default function Persona({titulo,contenido}){
+import { useState } from 'react';
+export default function Acordeon({titulo,contenido}){
+    const [abierto, setAbierto] = useState(false);
 
 
     return(
@@ -6,7 +8,9 @@ export default function Persona({titulo,contenido}){
         <div>
            <h2 onClick={() => setAbierto(!abierto)}>
             {titulo} {abierto ? '▲' : '▼'} </h2>
-           {abierto && <p>{contenido}</p>}
+
+           {abierto && 
+           <p>{contenido}</p>}
         </div>
         
         </>

@@ -1,57 +1,59 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function ListaDeCompras() {
-  const [lista, setLista] = useState([]);
-  const [texto, setTexto] = useState('');
+  const [items, setItems] = useState([]);
+  const [nuevoTexto, setNuevoTexto] = useState("");
 
-  const agregar = (e) => {
-    e.preventDefault();
-    if (texto === '') return;
-
-    setLista([...lista, { texto: texto, comprado: false }]);
-    setTexto('');
+  const agregarItem = () => {
+    if (nuevoTexto.trim() === "") return;
+    setItems([...items, { id: Date.now(), texto: nuevoTexto, comprado: false }]);
+    setNuevoTexto("");
   };
 
-  const tachar = (index) => {
-    const nuevaLista = [...lista];
-    nuevaLista[index].comprado = !nuevaLista[index].comprado;
-    setLista(nuevaLista);
+  const toggleComprado = (id) => {
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, comprado: !item.comprado } : item
+      )
+    );
   };
 
-  const borrar = (index) => {
-    setLista(lista.filter((_, i) => i !== index));
+  const eliminarItem = (id) => {
+    setItems(items.filter((item) => item.id !== id));
   };
 
-  const faltantes = lista.filter(item => !item.comprado).length;
+  const faltantes = items.filter((item) => !item.comprado).length;
 
   return (
     <div>
-      <form onSubmit={agregar}>
-        <input 
-          type="text" 
-          value={texto} 
-          onChange={(e) => setTexto(e.target.value)} 
+      <h2>Lista de Compras</h2>
+      <div>
+        <input
+          type="text"
+          value={nuevoTexto}
+          onChange={(e) => setNuevoTexto(e.target.value)}
+          placeholder="Agregar ítem..."
         />
-        <button type="submit">Agregar</button>
-      </form>
-
-      <p>Faltan comprar: {faltantes}</p>
+        <button onClick={agregarItem}>Agregar</button>
+      </div>
 
       <ul>
-        {lista.map((item, index) => (
-          <li key={index}>
-            <input 
-              type="checkbox" 
-              checked={item.comprado} 
-              onChange={() => tachar(index)} 
+        {items.map((item) => (
+          <li key={item.id}>
+            <input
+              type="checkbox"
+              checked={item.comprado}
+              onChange={() => toggleComprado(item.id)}
             />
-            <span style={{ textDecoration: item.comprado ? 'line-through' : 'none' }}>
-              {item.texto}
-            </span>
-            <button onClick={() => borrar(index)}>x</button>
+             <span style={{ textDecoration: item.comprado ? "line-through" : "none" }}>
+                {item.texto}
+             </span>
+            <button onClick={() => eliminarItem(item.id)}>✕</button>
           </li>
         ))}
       </ul>
+
+      <p>Faltan comprar: {faltantes}</p>
     </div>
   );
 }
