@@ -7,6 +7,7 @@ import Buscador from './components/Buscador'
 import Contador from "./components/Contador";
 import ListaDeCompras from './components/ListaDeCompras'
 import Reloj from "./components/Reloj";
+import Clicks from "./components/Clicks";
 import { useState } from 'react'
 
 const peliculas = [
@@ -48,6 +49,7 @@ function App() {
       <Acordeon titulo="Título algo" contenido="Contenidof" />
       <Buscador/>
       <ListaDeCompras/>
+      <Clicks />
     </>
   );
   
